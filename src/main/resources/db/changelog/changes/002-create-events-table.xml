@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="002-create-events-table" author="hangout-bot">
+        <comment>Create events table for hangout events</comment>
+        
+        <createTable tableName="events">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="creator_discord_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="channel_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_id" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deadline" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue tableName="events" columnName="status" defaultValue="ACTIVE"/>
+        <addDefaultValue tableName="events" columnName="created_at" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        
+        <rollback>
+            <dropTable tableName="events"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

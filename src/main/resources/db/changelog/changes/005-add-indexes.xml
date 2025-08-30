@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="005-add-indexes" author="hangout-bot">
+        <comment>Add performance indexes for hangout availability planner</comment>
+        
+        <!-- Index for finding events by channel -->
+        <createIndex tableName="events" indexName="idx_events_channel_id">
+            <column name="channel_id"/>
+        </createIndex>
+        
+        <!-- Index for finding events by status -->
+        <createIndex tableName="events" indexName="idx_events_status">
+            <column name="status"/>
+        </createIndex>
+        
+        <!-- Index for finding events by message ID -->
+        <createIndex tableName="events" indexName="idx_events_message_id">
+            <column name="message_id"/>
+        </createIndex>
+        
+        <!-- Index for finding events by creator -->
+        <createIndex tableName="events" indexName="idx_events_creator_discord_id">
+            <column name="creator_discord_id"/>
+        </createIndex>
+        
+        <!-- Composite index for active events by channel -->
+        <createIndex tableName="events" indexName="idx_events_channel_status_created">
+            <column name="channel_id"/>
+            <column name="status"/>
+            <column name="created_at"/>
+        </createIndex>
+        
+        <!-- Index for finding timeslots by event -->
+        <createIndex tableName="timeslots" indexName="idx_timeslots_event_id">
+            <column name="event_id"/>
+        </createIndex>
+        
+        <!-- Index for finding timeslots by emoji -->
+        <createIndex tableName="timeslots" indexName="idx_timeslots_event_emoji">
+            <column name="event_id"/>
+            <column name="emoji"/>
+        </createIndex>
+        
+        <!-- Index for ordering timeslots by start time -->
+        <createIndex tableName="timeslots" indexName="idx_timeslots_start_time">
+            <column name="start_time"/>
+        </createIndex>
+        
+        <!-- Index for finding availabilities by event -->
+        <createIndex tableName="availabilities" indexName="idx_availabilities_event_id">
+            <column name="event_id"/>
+        </createIndex>
+        
+        <!-- Index for finding availabilities by timeslot -->
+        <createIndex tableName="availabilities" indexName="idx_availabilities_timeslot_id">
+            <column name="timeslot_id"/>
+        </createIndex>
+        
+        <!-- Index for finding availabilities by user -->
+        <createIndex tableName="availabilities" indexName="idx_availabilities_user_discord_id">
+            <column name="user_discord_id"/>
+        </createIndex>
+        
+        <!-- Composite index for counting available votes by timeslot -->
+        <createIndex tableName="availabilities" indexName="idx_availabilities_timeslot_status">
+            <column name="timeslot_id"/>
+            <column name="status"/>
+        </createIndex>
+        
+        <!-- Composite index for finding user votes by event -->
+        <createIndex tableName="availabilities" indexName="idx_availabilities_event_user">
+            <column name="event_id"/>
+            <column name="user_discord_id"/>
+        </createIndex>
+        
+        <rollback>
+            <dropIndex tableName="events" indexName="idx_events_channel_id"/>
+            <dropIndex tableName="events" indexName="idx_events_status"/>
+            <dropIndex tableName="events" indexName="idx_events_message_id"/>
+            <dropIndex tableName="events" indexName="idx_events_creator_discord_id"/>
+            <dropIndex tableName="events" indexName="idx_events_channel_status_created"/>
+            <dropIndex tableName="timeslots" indexName="idx_timeslots_event_id"/>
+            <dropIndex tableName="timeslots" indexName="idx_timeslots_event_emoji"/>
+            <dropIndex tableName="timeslots" indexName="idx_timeslots_start_time"/>
+            <dropIndex tableName="availabilities" indexName="idx_availabilities_event_id"/>
+            <dropIndex tableName="availabilities" indexName="idx_availabilities_timeslot_id"/>
+            <dropIndex tableName="availabilities" indexName="idx_availabilities_user_discord_id"/>
+            <dropIndex tableName="availabilities" indexName="idx_availabilities_timeslot_status"/>
+            <dropIndex tableName="availabilities" indexName="idx_availabilities_event_user"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

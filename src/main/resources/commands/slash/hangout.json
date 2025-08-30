@@ -1,0 +1,246 @@
+{
+  "name": "hangout",
+  "description": "Manage hangout events",
+  "options": [
+    {
+      "name": "menu",
+      "description": "Open the Hangout panel (buttons)",
+      "type": 1
+    },
+    {
+      "name": "create",
+      "description": "Create a hangout event",
+      "type": 1,
+      "options": [
+        {
+          "name": "title",
+          "description": "Title of the hangout event",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "time1_start",
+          "description": "First time option start (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "time1_end",
+          "description": "First time option end (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "description",
+          "description": "Description of the hangout event",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "deadline",
+          "description": "Voting deadline (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time1_desc",
+          "description": "Description for first time option",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time2_start",
+          "description": "Second time option start (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time2_end",
+          "description": "Second time option end (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time2_desc",
+          "description": "Description for second time option",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time3_start",
+          "description": "Third time option start (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time3_end",
+          "description": "Third time option end (YYYY-MM-DD HH:MM)",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "time3_desc",
+          "description": "Description for third time option",
+          "type": 3,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "availability",
+      "description": "Set your availability for an event",
+      "type": 1,
+      "options": [
+        {
+          "name": "choice",
+          "description": "Timeslot option number (1..10)",
+          "type": 4,
+          "required": true
+        },
+        {
+          "name": "status",
+          "description": "Your availability status",
+          "type": 3,
+          "required": true,
+          "choices": [
+            { "name": "Available", "value": "AVAILABLE" },
+            { "name": "Maybe", "value": "MAYBE" },
+            { "name": "Unavailable", "value": "UNAVAILABLE" }
+          ]
+        },
+        {
+          "name": "event_id",
+          "description": "Event ID (shown in the event footer)",
+          "type": 4,
+          "required": false
+        },
+        {
+          "name": "message_link",
+          "description": "Link to the event message",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "remove",
+          "description": "Remove your vote for this choice",
+          "type": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "description": "List hangout events in this channel",
+      "type": 1
+    },
+    {
+      "name": "view",
+      "description": "View a hangout event summary",
+      "type": 1,
+      "options": [
+        {
+          "name": "event_id",
+          "description": "Event ID (shown in the event footer)",
+          "type": 4,
+          "required": false
+        },
+        {
+          "name": "message_link",
+          "description": "Link to the event message",
+          "type": 3,
+          "required": false
+        },
+        {
+          "name": "public",
+          "description": "Post to channel instead of ephemeral",
+          "type": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "description": "Close an event and post results",
+      "type": 1,
+      "options": [
+        {
+          "name": "event_id",
+          "description": "Event ID (shown in the event footer)",
+          "type": 4,
+          "required": false
+        },
+        {
+          "name": "message_link",
+          "description": "Link to the event message",
+          "type": 3,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "timezone",
+      "description": "Set your timezone (IANA name, e.g. Europe/London)",
+      "type": 1,
+      "options": [
+        {
+          "name": "zone",
+          "description": "Timezone ID (e.g. America/New_York)",
+          "type": 3,
+          "required": false,
+          "choices": [
+            { "name": "UTC", "value": "UTC" },
+            { "name": "Europe/London", "value": "Europe/London" },
+            { "name": "Europe/Paris", "value": "Europe/Paris" },
+            { "name": "Europe/Berlin", "value": "Europe/Berlin" },
+            { "name": "America/New_York", "value": "America/New_York" },
+            { "name": "America/Los_Angeles", "value": "America/Los_Angeles" },
+            { "name": "America/Chicago", "value": "America/Chicago" },
+            { "name": "Asia/Tokyo", "value": "Asia/Tokyo" },
+            { "name": "Asia/Kolkata", "value": "Asia/Kolkata" },
+            { "name": "Australia/Sydney", "value": "Australia/Sydney" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "draft_create",
+      "description": "Create a draft event to collect timeslot proposals",
+      "type": 1,
+      "options": [
+        {
+          "name": "title",
+          "description": "Title of the draft event",
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "description",
+          "description": "Description of the event",
+          "type": 3,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "draft_propose",
+      "description": "Propose a timeslot for a draft event",
+      "type": 1,
+      "options": [
+        { "name": "start", "description": "Start time (YYYY-MM-DD HH:MM)", "type": 3, "required": true },
+        { "name": "end", "description": "End time (YYYY-MM-DD HH:MM)", "type": 3, "required": true },
+        { "name": "event_id", "description": "Draft event ID", "type": 4, "required": false },
+        { "name": "message_link", "description": "Link to the draft message", "type": 3, "required": false },
+        { "name": "desc", "description": "Optional note for this timeslot", "type": 3, "required": false }
+      ]
+    },
+    {
+      "name": "draft_finalize",
+      "description": "Finalize a draft by picking the winning timeslot and activating the event",
+      "type": 1,
+      "options": [
+        { "name": "event_id", "description": "Draft event ID", "type": 4, "required": false },
+        { "name": "message_link", "description": "Link to the draft message", "type": 3, "required": false }
+      ]
+    }
+  ]
+}

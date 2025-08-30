@@ -1,26 +1,95 @@
 server:
-  port: 8080
+  port: ${PORT:${SERVER_PORT:8080}}
 
 spring:
   application:
-    name: discord-bot
+    name: hangout
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/discordbot
-    username: postgres
-    password: postgres
+    url: ${DATABASE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:hangout_db}}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+
+  # Development tools for hot reloading
+  devtools:
+    restart:
+      enabled: ${SPRING_DEVTOOLS_RESTART_ENABLED:true}
+    livereload:
+      enabled: ${SPRING_DEVTOOLS_LIVERELOAD_ENABLED:true}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
 
 logging:
   level:
     root: info
     uk.co.louiseconnell: debug
 
-token: "Your token here"
+# Discord Bot Configuration
+discord:
+  bot:
+    token: ${DISCORD_BOT_TOKEN:}
+    # Optional: set to a development guild ID to register commands as guild-scoped for faster updates
+    guild-id: ${DISCORD_GUILD_ID:}
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    uk.co.louiseconnell: debug
+    org.springframework: debug
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+logging:
+  level:
+    root: warn
+    uk.co.louiseconnell: info

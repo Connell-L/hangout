@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Environment Files ###
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### Local config overrides (do not commit secrets) ###
+dev.yml
+config/dev.yml
+application-local.yml
+application-*.local.yml
